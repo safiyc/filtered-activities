@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles.css';
+
+import Filters from './Filters';
+import Activiities from './Activities';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app_container'>
+      <h1>Filter Activities</h1>
+      <hr />
+      <br />
+      <div >
+        <label htmlFor='add_filter'>New filter</label>
+        <div>
+          <input className='add_input' type='text' id='add_filter' />
+          <button className='add_button' type='button'>add</button>
+        </div>
+        <br />
+        <label htmlFor='add_activity'>New activity</label>
+        <div>
+          <input className='add_input' type='text' id='add_activity' />
+          <button className='add_button' type='button'>add</button>
+        </div>
+
+      </div>
+      <br />
+      <Filters />
+      <br />
+      <Activiities />
     </div>
   );
 }

@@ -1,0 +1,114 @@
+h1, h2 {
+  text-align: center;
+}
+
+ul {
+  padding-left: 0;
+}
+li {
+  list-style-type: none;
+  font-size: 20px;
+  margin: 8px 0;
+}
+
+.app_container {
+  padding: 15px;
+}
+
+.add_input {
+  font-size: 16px;
+  padding: 5px;
+}
+
+.add_button {
+  margin-left: 5px;
+  border: 2px solid grey;
+  background-color: white;
+  color: black;
+
+  font-size: 16px;
+  padding: 5px;
+  width: 80px;
+}
+
+.add_button:hover {
+  border-color: black;
+}
+
+.add_button:active {
+  border-color: black;
+  background-color: black;
+  color: white;
+}
+
+
+/* style custom checkbox */
+.checkbox_container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  padding-left: 25px;
+  user-select: none;
+}
+
+
+/* input el with type checkbox */
+.input_checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* custom checkbox */
+.custom_checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: lightgray;
+}
+
+/* when input is checked */
+.input_checkbox:checked ~ .custom_checkbox {
+  background-color: yellowgreen;
+}
+
+/*  custom checkbox indicator; is hidden when note checked */
+.custom_checkbox:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* show custom checkbox when input is checked */
+.input_checkbox:checked ~ .custom_checkbox:after {
+  display: block;
+}
+
+/* style the custom checkbox indicator */
+.custom_checkbox:after {
+  left: 6px;
+  top: 2px;
+  width: 3px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+
+/* filter on-off switch */
+.filter_buttons {
+  border: none;
+  font-size: 16px;
+  padding: 5px;
+  width: 80px;
+  background-color: white;
+}
+
+.filter_buttons[value='on'] {
+  background-color: yellowgreen;
+}
