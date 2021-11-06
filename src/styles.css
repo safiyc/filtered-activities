@@ -1,3 +1,8 @@
+html, body {
+  font-family: helvetica;
+  font-size: 16px;
+}
+
 h1, h2 {
   text-align: center;
 }
@@ -11,21 +16,43 @@ li {
   margin: 8px 0;
 }
 
+hr {
+  height: 10px;
+  background-color: lightgray;
+  border: none;
+}
+
 .app_container {
   padding: 15px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.add_input_container {
+  display: inline-block;
+  border: 1px solid gray;
+  padding: 5px;
 }
 
 .add_input {
   font-size: 16px;
-  padding: 5px;
+  height: 25px;
+  border: none;
+  border-bottom: 1px dotted gray;
+}
+
+.add_input:focus {
+  outline: none;
+  border-bottom: 1px dotted black;
+  margin-bottom: -1px;
 }
 
 .add_button {
   margin-left: 5px;
   border: 2px solid grey;
+  border-radius: 5px;
   background-color: white;
-  color: black;
-
+  color: gray;
   font-size: 16px;
   padding: 5px;
   width: 80px;
@@ -33,6 +60,7 @@ li {
 
 .add_button:hover {
   border-color: black;
+  color: black;
 }
 
 .add_button:active {
@@ -52,7 +80,7 @@ li {
 }
 
 
-/* input el with type checkbox */
+/* input type checkbox */
 .input_checkbox {
   position: absolute;
   opacity: 0;
@@ -64,11 +92,15 @@ li {
 /* custom checkbox */
 .custom_checkbox {
   position: absolute;
-  top: 0;
+  top: 3px;
   left: 0;
   height: 18px;
   width: 18px;
   background-color: lightgray;
+}
+
+.custom_checkbox:hover {
+  border: 1px solid gray;
 }
 
 /* when input is checked */
@@ -99,16 +131,55 @@ li {
   transform: rotate(45deg);
 }
 
-
-/* filter on-off switch */
-.filter_buttons {
-  border: none;
+.clearAllFiltersBtn {
+  position: absolute;
+  bottom: -10px;
+  right: 30px;
+  background-color: white;
+  color: gray;
+  border: 2px solid gray;
+  border-radius: 5px;
+  width: 95px;
+  margin: 0 auto;
   font-size: 16px;
   padding: 5px;
-  width: 80px;
+}
+
+.clearAllFiltersBtn:hover {
+  border-color: black;
+  color: black;
+}
+
+.clearAllFiltersBtn:active {
+  border-color: orangered;
+  background-color: orangered;
+  color: white;
+}
+
+/* filter all-filter switch */
+.filter_toggle_button {
+  background-color: white;
+  border: 2px solid gray;
+  border-radius: 5px;
+  width: 95px;
+  padding: 0;
+  display: flex;
+  margin: 0 auto;
+}
+
+.filter_toggle_button:hover {
+  border: 2px solid black;
+}
+
+.filter_toggle_button_child {
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  padding: 5px;
+  width: 50%;
   background-color: white;
 }
 
-.filter_buttons[value='on'] {
+.filter_toggle_button_child[value='on'] {
   background-color: yellowgreen;
 }

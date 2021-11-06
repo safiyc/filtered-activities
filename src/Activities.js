@@ -1,42 +1,33 @@
-import { useState } from 'react';
-
-const Activiities = () => {
-  const [modeFiltered, setModeFiltered] = useState('on');
-  const [modeAll, setModeAll] = useState('off');
-
-  const handleFilterMode = (e) => {
-    // console.log('e.target...', e.target);
-
-    if (e.target.value === 'on') {
-      return;
-    }
-
-    if (modeAll === 'off') {
-      setModeAll('on');
-      setModeFiltered('off');
-    } else if (modeFiltered === 'off') {
-      setModeAll('off');
-      setModeFiltered('on');
-    }
-  }
-
+const Activiities = (props) => {
   return (
     <>
       <h2>Activities</h2>
       <div style={{ textAlign: 'center' }}>
-        {/* display inline-block to resize div to nested btns */}
-        {/* fontSize 0px is hack to remove inline whitespace above btns in div */}
-        <div style={{ border: '2px solid black', display: 'inline-block', fontSize: '0px' }}>
-          <button className='filter_buttons' value={modeAll} onClick={handleFilterMode}>all</button>
-          <button className='filter_buttons' value={modeFiltered} onClick={handleFilterMode}>filtered</button>
-        </div>
+        <button
+          className='filter_toggle_button'
+          value={props.filterToggle}
+          onClick={props.handleFilterToggle}
+        >
+          <span
+            className='filter_toggle_button_child'
+            value={props.filterToggle === 'all' ? 'on' : 'off'}
+          >
+            all
+          </span>
+          <span
+            className='filter_toggle_button_child'
+            value={props.filterToggle === 'filter' ? 'on' : 'off'}
+          >
+            filter
+          </span>
+        </button>
       </div>
-      <ul>
-        <li>boardgame</li>
-        <li>eat out</li>
-        <li>video chat</li>
-        <li>boardgame</li>
-        <li>tennis</li>
+      <ul style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
+        {props.activities.map(item =>
+          <li style={{ width: '40%' }} key={item.id}>
+            {item.activity}
+          </li>
+        )}
       </ul>
     </>
   )
