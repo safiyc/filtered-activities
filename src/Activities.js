@@ -22,9 +22,13 @@ const Activiities = (props) => {
           </span>
         </button>
       </div>
-      <ul style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
+      <ul style={{
+        display: 'grid',
+        gridTemplateColumns: '40% 40%',
+        justifyContent: 'space-evenly'
+      }}>
         {props.activities.map(item =>
-          <li style={{ width: '40%' }} key={item.id}>
+          <li style={{ backgroundColor: 'azure', padding: '5px' }} key={item.id}>
             {item.activity}
           </li>
         )}

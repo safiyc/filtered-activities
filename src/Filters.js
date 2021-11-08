@@ -32,7 +32,16 @@ const Filters = (props) => {
           <li key={item.id}>
             <label className='checkbox_container' htmlFor={item.filterName}>
               {item.filterName}
-              <input className='input_checkbox' type='checkbox' value='money' name='filters' id={item.filterName} />
+              <input
+                className='input_checkbox'
+                type='checkbox'
+                // value={item.id}
+                value={item.filterName}
+                name='filters'
+                id={item.filterName}
+                onChange={props.handleCheckedFilters}
+                checked={item.isChecked}
+              />
               <span className='custom_checkbox'></span>
             </label>
           </li>
