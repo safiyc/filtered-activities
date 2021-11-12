@@ -53,38 +53,28 @@ const filtersArr = [
 const activitiesArr = [
   {
     activity: 'boardgame',
-    filterNames: [],
+    filterNames: ['social'],
     id: '1'
   },
   {
     activity: 'eatout',
-    filterNames: [],
+    filterNames: ['social', 'solo'],
     id: '2'
   },
   {
     activity: 'videochat',
-    filterNames: [],
+    filterNames: ['social', 'healthy'],
     id: '3'
   },
   {
     activity: 'prepare a dish',
-    filterNames: [],
+    filterNames: ['create', 'social'],
     id: '4'
   },
   {
     activity: 'go for a walk',
-    filterNames: [],
+    filterNames: ['healthy', 'social'],
     id: '5'
-  },
-  {
-    activity: 'go for a run',
-    filterNames: [],
-    id: '6'
-  },
-  {
-    activity: 'work on a 3d project',
-    filterNames: [],
-    id: '7'
   }
 ];
 
@@ -92,7 +82,7 @@ function App() {
   const [activities, setActivities] = useState(activitiesArr);
   const [filters, setFilters] = useState(filtersArr);
   const [filterToggle, setFilterToggle] = useState('all');  // 'all', 'filter'
-  const [newItemValue, setNewItemValue] = useState('');
+  const [newItemValue, setNewItemValue] = useState('');  // input field for new activity/filter
   const [checkedFilters, setCheckedFilters] = useState([]);  // arr of filterName from checked  elements 
   const [modalToggle, setModalToggle] = useState(false);  // true, false
 
@@ -132,13 +122,13 @@ function App() {
 
   // save seleted filter names into arr checkedFilters
   const handleCheckedFilters = (e) => {
-    console.log('checkbox is checked or not...', e.target.checked);  // true, false
+    // console.log('checkbox is checked or not...', e.target.checked);  // true, false
 
     const aCheckedFilter = e.target.value; // filter's id of clicked checkbox
 
     // update ischecked of filters arr state
     const index = filters.findIndex(item => item.filterName === aCheckedFilter);
-    console.log('index of checked item in filters arr...', index);
+    // console.log('index of checked item in filters arr...', index);
 
     // add checked filter to arr
     if (e.target.checked) {
@@ -175,7 +165,6 @@ function App() {
       console.log('Can\'t add an empty input item.');
       return;
     }
-
     // find if item is a duplicate of item in filters array
     // returns 'undefined' if filters has no duplicate
     const itemCheck = filters.find(ind => ind.filterName === newItemValue);
@@ -220,8 +209,21 @@ function App() {
     setModalToggle(false);
   };
 
-  console.log('activities arr...', activities);
+  // console.log('activities arr...', activities);
 
+  // uncheck all checked input filters (Filter component) and empty checkedFilters arr
+  const handleClearAll = () => {
+    let tempFilters = JSON.parse(JSON.stringify(filters));
+    tempFilters.forEach(item => item.isChecked = false);
+    // console.log('tempFilters...', tempFilters);
+
+    setFilters(tempFilters);
+    setCheckedFilters([]);
+  };
+
+  // console.log('filters...', filters);
+
+  // render Activities as 'all' or as 'filter' based on checked filter inputs
   const handleFilterToggle = (e) => {
     // will log clicked child of button instead
     // console.log('e.target child...', e.target);
@@ -230,23 +232,12 @@ function App() {
 
     if (e.currentTarget.value === 'all') {
       setFilterToggle('filter');
+
     } else {
       setFilterToggle('all');
     }
-
     // console.log('e.target button...', e.currentTarget);
   };
-
-  // uncheck all checked filters (Filter component)
-  const handleClearAll = () => {
-    let tempFilters = JSON.parse(JSON.stringify(filters));
-    tempFilters.forEach(item => item.isChecked = false);
-    // console.log('tempFilters...', tempFilters);
-
-    setFilters(tempFilters);
-  };
-
-  console.log('filters...', filters);
 
   return (
     <div className='app_container'>
@@ -277,7 +268,12 @@ function App() {
         handleCheckedFilters={handleCheckedFilters}
       />
       <br />
-      <Activiities filterToggle={filterToggle} activities={activities} handleFilterToggle={handleFilterToggle} />
+      <Activiities
+        filterToggle={filterToggle}
+        handleFilterToggle={handleFilterToggle}
+        activities={activities}
+        checkedFilters={checkedFilters}
+      />
     </div>
   );
 }
