@@ -229,13 +229,22 @@ hr {
 
 .modal_ul_container {
   border: 10px solid lightgray;
-  padding: 15px;
-  padding-top: 30px;
+  padding: 30px 15px;
+  /* padding-top: 30px; */
   display: grid;
   grid-template-columns: repeat(auto-fill, 100px);
   justify-content: space-between;
   grid-gap: 10px;
   background-color: white;
+}
+
+.modal_notification {
+  height: 20px;
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  text-align: center;
+  color: gray;
 }
 
 .modal_submit_btn {

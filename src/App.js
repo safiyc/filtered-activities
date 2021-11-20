@@ -1,3 +1,5 @@
+// please refactor!
+
 import { useState } from 'react';
 
 import './styles.css';
@@ -85,6 +87,7 @@ function App() {
   const [newItemValue, setNewItemValue] = useState('');  // input field for new activity/filter
   const [checkedFilters, setCheckedFilters] = useState([]);  // arr of filterName from checked  elements 
   const [modalToggle, setModalToggle] = useState(false);  // true, false
+  const [notification, setNotification] = useState('');
 
   const handleNewItemInput = (e) => {
     setNewItemValue(e.target.value);
@@ -98,22 +101,34 @@ function App() {
       // should refactor this mess
       handleClearAll();
 
-      // cant empty string
-      if (newItemValue === '') {
-        console.log('Can\'t add an empty input item.');
-        return;
-      }
       // find if item is a duplicate of item in activities array
       // returns 'undefined' if no duplicate
       const itemCheck = activities.find(ind => ind.activity === newItemValue);
       // console.log('itemCheck...', itemCheck);
+
+      // cant empty string
+      if (newItemValue === '') {
+        console.log('Can\'t add an empty input item.');
+
+        setNotification('Cannot add a blank activity name.');
+        setTimeout(() => {
+          setNotification('');
+        }, 3000);
+        return;
+      }
+
 
       if (itemCheck === undefined) {
         setModalToggle(true);  // open the modal window
 
         // don't open modal window
       } else {
-        console.log('The new item is a duplicate.');
+        console.log('Can\'t add an duplicate input item.');
+
+        setNotification('Cannot add a duplicate activity.');
+        setTimeout(() => {
+          setNotification('');
+        }, 3000);
         return;
       }
     }
@@ -163,6 +178,11 @@ function App() {
   const addNewFilter = () => {
     if (newItemValue === '') {
       console.log('Can\'t add an empty input item.');
+
+      setNotification('Cannot add a blank filter name.');
+      setTimeout(() => {
+        setNotification('')
+      }, 3000);
       return;
     }
     // find if item is a duplicate of item in filters array
@@ -179,34 +199,59 @@ function App() {
     };
 
     if (itemCheck === undefined) {
+      setNotification('New filter is added.');
+      setTimeout(() => {
+        setNotification('')
+      }, 3000);
+
       setFilters(filters.concat(item));
     } else {
       console.log('The new item is a duplicate.');
+
+      setNotification('Cannot add a duplicate filter.');
+
+      setTimeout(() => {
+        setNotification('')
+      }, 3000);
     }
   };
 
   // console.log('filters arr...', filters);
 
   const addNewActivity = () => {
-    // uncheck checked elements in Filter componenent (hack to resolve checked els in Filter component from conflict with checked els in ModalWindow)
-    // should refactor this mess
-    handleClearAll();
-
     const id = Math.floor(Math.random() * 1000000);
-
     const item = {
       activity: newItemValue,
       filterNames: checkedFilters,
       id: id
     };
 
-    setActivities(activities.concat(item));
+    // prevent adding a new activity that does have at least one filter selected
+    if (checkedFilters.length > 0) {
+      setActivities(activities.concat(item));
 
-    const tempCheckedFilters = [];
-    // clone of tempCheckedFilters to assign empty arr
-    setCheckedFilters(JSON.parse(JSON.stringify(tempCheckedFilters)));
+      const tempCheckedFilters = [];
+      // clone of tempCheckedFilters to assign empty arr
+      setCheckedFilters(JSON.parse(JSON.stringify(tempCheckedFilters)));
 
-    setModalToggle(false);
+      setModalToggle(false);
+
+      setNotification('New activity is added.');
+
+      setTimeout(() => {
+        setNotification('');
+      }, 3000);
+
+      // uncheck checked elements in Filter componenent (hack to resolve checked els in Filter component from conflict with checked els in ModalWindow)
+      handleClearAll();
+    } else {
+      console.log('this is a test');
+      setNotification('Please select at least one filter.');
+      setTimeout(() => {
+        setNotification('')
+      }, 3000);
+    }
+    // console.log('checkedFilters list after add new activity', checkedFilters);
   };
 
   // console.log('activities arr...', activities);
@@ -249,6 +294,7 @@ function App() {
         newItemValue={newItemValue}
         addNewFilter={addNewFilter}
         handleModalToggle={handleModalToggle}
+        notification={notification}
       />
 
       {/* modal for add activity */}
@@ -258,9 +304,8 @@ function App() {
         handleModalToggle={handleModalToggle}
         addNewActivity={addNewActivity}
         handleCheckedFilters={handleCheckedFilters}
+        notification={notification}
       />
-      <br />
-      <br />
       <br />
       <Filters
         filters={filters}

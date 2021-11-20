@@ -24,6 +24,7 @@ const ModalWindow = (props) => {
               </li>
             )}
           </ul>
+          <div className='modal_notification'>{props.notification}</div>
           <button className='modal_submit_btn' onClick={props.addNewActivity}>add filters</button>
         </div>
       </div>

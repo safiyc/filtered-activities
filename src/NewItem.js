@@ -22,6 +22,7 @@ const NewItem = (props) => {
           onClick={props.handleModalToggle}
         >activity</button>
       </div>
+      <div style={{ height: '20px', color: 'gray', padding: '5px' }}>{props.notification}</div>
     </div>
   );
 };
